@@ -135,5 +135,16 @@ Array.from(aboutMeTextContent).forEach((char) => {
 });
 // End of About Me Text 
 
+// Projects
+const projects = document.querySellectorAll(".project");
 
+projects.forEach((project) => {
+    project.addEventListener("mouseenter", () => {
+            project.firstElementChild.style.top = `-${
+                project.firstElementChild.offsetHeight - project.
+                    offsetHeight + 20
+                }px`;
+        });
+});
+// End of Prtojects 
 
