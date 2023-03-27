@@ -5,20 +5,135 @@ const mouseDot = document.querySelector(".mouse-dot");
 const mouseCircleFn = (x, y) => {
     mouseCircle.style.cssText = `top: ${y}px; left: ${x}px`;
     mouseDot.style.cssText = `top: ${y}px; left: ${x}px`;
-
 };
 // End of Mouse Circle
 
-document.body.addEventListener("mousemove", (e) => { 
-    let x = e.clientX
-    let y = e.clientY
 
-    mouseCircleFn(x,y);
-});
 
-// Animated circles
-const circles = document.querySelectorAll("circle")
+// Animated Circles
+const circles = document.querySelectorAll(".circle");
 const mainImg = document.querySelector(".main-circle img");
 
-const animateCircles = (e, x, y) => {}
+let mX = 0;
+let mY = 0;
+
+const animateCircles = (e,x,y) => {
+    if(x < mX) {
+        circles.forEach((circle) => {
+            circle.style.left = `100px`;
+        });
+        mainImg.style.left = `100px`;
+    } else if(x > mX) {
+        circles.forEach((circle) => {
+            circle.style.left = `-100px`;
+        });
+        mainImg.style.left = `-100px`;  
+    }
+
+
+    if (y < mY) {
+        circles.forEach((circle) => {
+            circle.style.top = `100px`;
+        });
+        mainImg.style.top = `100px`;
+    } else if(y > mY) {
+        circles.forEach((circle) => {
+            circle.style.top = `-100px`;
+        });
+        mainImg.style.top = `-100px`;  
+    }
+
+    mX = e.clientX;
+    mY = e.clientY;
+};
+
+
+document.body.addEventListener("mousemove", (e) => {
+let x = e.clientX;
+let y = e.clientY;
+
+    mouseCircleFn(x,y);
+    animateCircles(e,x,y);
+});
+
+
+
+const animatecircles = (e,x,y) => {
+    if(x < mX) {
+        circles.forEach((circle) => {
+            circle.style.left = `100px`;
+        });
+        mainImg.style.left = `100px`;
+    } else if(x > mX) {
+        circles.forEach((circle) => {
+            circle.style.left = `-100px`;
+        });
+        mainImg.style.left = `-100px`;  
+    }
+
+
+    if (y < mY) {
+        circles.forEach((circle) => {
+            circle.style.top = `100px`;
+        });
+        mainImg.style.top = `100px`;
+    } else if(y > mY) {
+        circles.forEach((circle) => {
+            circle.style.top = `-100px`;
+        });
+        mainImg.style.top = `-100px`;  
+    }
+
+    mX = e.clientX;
+    My = e.clientY;
+};
 // End of Animated Circles
+
+
+// Main Buttom
+const mainBtns = document.querySelectorAll(".main-btn");
+
+mainBtns.forEach(btn => {
+    let ripple;
+
+ btn.addEventListener("mouseenter",(e) => {
+  const left = e.clientX - e.target.getBoundingClientRect().
+  left;
+
+  const top = e.clientY - e.target.getBoundingClientRect().
+  top;
+
+  ripple = document.createElement("div");
+  ripple.classList.add("ripple");
+  ripple.style.left = `${left}px`;
+  ripple.style.top = `${top}px`;
+  btn.prepend(ripple);
+  });
+
+  btn.addEventListener("mouseleave", () => {
+  btn.removeChild(ripple);
+  });
+
+  })
+
+// End of Main Butoon 
+
+
+// About Me Text 
+const aboutMeText = document.querySelector(".about-me-text");
+const aboutMeTextContent = 
+"I am a designer & I create awards winning websites with the best user experience & I do not talk much, just contact me. :) #L3GND";
+
+Array.from(aboutMeTextContent).forEach((char) => {
+    const span = document.createElement("span");
+    span.textContent = char;
+    aboutMeText.appendChild(span);
+
+    span.addEventListener("mouseenter", (e) => {
+        e.target.style.animation = "aboutMeTextAnim 10s infinite";
+    });
+});
+// End of About Me Text 
+
+
+
