@@ -502,7 +502,7 @@ html {
     position: relative;
     border: 0.2rem dotted #9b0e0e;
     border-radius: 0.5rem;
-    cursor: pointer;
+    cursor: progress;
 }
 
 .project img {
@@ -511,8 +511,11 @@ html {
     position: absolute;
     top: 2rem;
     transition: top 4s;
+
+
 }
 /* End of Projects */
+
 /* End of Section 3 */ 
 
 
