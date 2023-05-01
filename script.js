@@ -118,26 +118,6 @@ mainBtns.forEach(btn => {
 
 // End of Main Butoon 
 
-// Navigation 
-const menuIcon = document.querySelector(".menu-icon");
-const navbar = document.querySelector(".navbar");
-
-document.addEventListener("scroll", () => {
-    menuIcon.classList.add("show-menu-icon");
-    navbar.classList.add("hide-navbar");
-
-    if(window.scrollY === 0) {
-        menuIcon.classList.remove("show-menu-icon");
-        navbar.classList.remove("hide-navbar");
-    }
-});
-
-menuIcon.addEventListener("click", () => {
-    menuIcon.classList.remove("show-menu-icon");
-    navbar.classList.remove("hide-navbar");
-});
-// End of Navigation 
-
 
 // About Me Text 
 const aboutMeText = document.querySelector(".about-me-text");
@@ -160,7 +140,7 @@ const container = document.querySelector(".container");
 const projects = document.querySelectorAll(".project");
 const projectHideBtn = document.querySelector(".project-hide-btn");
 
-projects.forEach(project => {
+projects.forEach((project, i) => {
     project.addEventListener('mouseenter', () => {
         project.firstElementChild.style.top = `-${project.firstElementChild.offsetHeight - project.offsetHeight + 20 }px`;
 
@@ -193,42 +173,80 @@ projects.forEach(project => {
         };
     });
     // End of Big Project Image
-
+i >= 6 && (project.style.cssText = "display: none; opacity: 0");
 });
-// End of Prtojects 
-// End of Form
 
-// Slideshow
-const slideshow = document.querySelector(".slideshow");
+// Projects Button
+const section3 = document.querySelector(".section-3");
+const projectsBtn = document.querySelector(".projects-btn");
+const projectsBtnText = document.querySelector(".projects-btn span");
+let showHideBool = true; 
 
-setInterval(() => {
-    const firstIcon = slideshow.firstElementChild;
-
-    firstIcon.classList.add("faded-out");
-
-    const thirdIcon = slideshow.children[3]
-
-    thirdIcon.classList.add("light");
-
-    thirdIcon.previousElementSibling.classList.remove("light");
+const showProjects = (project, i) => {
+    setTimeout(() => {
+        project.style.display = "flex";
+        section3.scrollIntoView({block: "end" });
+    }, 600);
 
     setTimeout(() => {
-        slideshow.removeChild(firstIcon);
+      project.style.opacity = "1";
+    }, i *200); 
+};
 
-        slideshow.appendChild(firstIcon);
+const hideProjects = (project, i) => {
+       setTimeout(() => {
+        project.style.display = "none";
+        section3.scrollIntoView({block: "end" });
+    }, 1200);
+
+    setTimeout(() => {
+        project.style.opacity = "0";
+    }, i *100); 
+};
 
 
-        setTimeout(() => {
-             firstIcon.classList.remove("faded-out");
-        }, 500);
+projectsBtn.addEventListener('click', (e) => {
+e.preventDefault();
 
-    }, 500);
-}, 3000);
+projectsBtn.firstElementChild.nextElementSibling.classList.toggle("change");
 
+showHideBool
+? (projectsBtnText.textContent = "Show Less")
+: (projectsBtnText.textContent = "Show More");
 
+projects.forEach((project, i) => {
+    i >= 6 &&
+    (showHideBool ? showProjects(project, i) :
+    hideProjects(project, i));
+});
 
+showHideBool = !showHideBool;
+});
 
+// End of Projects Button 
+// End of Prtojects 
 
-// End of Slideshow
+// Section 4
+document.querySelectorAll(".service-btn").forEach((service) => {
+    service.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const serviceText = service.nextElementSibling;
+        serviceText.classList.toggle("change");
+
+        const rightPosition = serviceText.classList.contains ("change")
+        ? `calc(100% - ${getComputedStyle(service.firstElementChild).width})`
+        : 0;
+
+        service.firstElementChild.style.right = rightPosition;
+    });
+    });
+// End of Section 4
+
+// Section 5
+// Form 
+const formHeading = document.querySelector(".form-heading")
+const formHeading = document.querySelector(".form-heading")
+// End of Form
 // End of Section 5
 
