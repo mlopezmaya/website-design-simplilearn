@@ -96,27 +96,47 @@ const mainBtns = document.querySelectorAll(".main-btn");
 mainBtns.forEach(btn => {
     let ripple;
 
- btn.addEventListener("mouseenter",(e) => {
-  const left = e.clientX - e.target.getBoundingClientRect().
-  left;
+    btn.addEventListener("mouseenter",(e) => {
+    const left = e.clientX - e.target.getBoundingClientRect().
+    left;
 
-  const top = e.clientY - e.target.getBoundingClientRect().
-  top;
+    const top = e.clientY - e.target.getBoundingClientRect().
+    top;
 
-  ripple = document.createElement("div");
-  ripple.classList.add("ripple");
-  ripple.style.left = `${left}px`;
-  ripple.style.top = `${top}px`;
-  btn.prepend(ripple);
-  });
+    ripple = document.createElement("div");
+    ripple.classList.add("ripple");
+    ripple.style.left = `${left}px`;
+    ripple.style.top = `${top}px`;
+    btn.prepend(ripple);
+    });
 
-  btn.addEventListener("mouseleave", () => {
-  btn.removeChild(ripple);
-  });
+    btn.addEventListener("mouseleave", () => {
+    btn.removeChild(ripple);
+    });
 
-  })
+    })
 
 // End of Main Butoon 
+
+// Navigation 
+const menuIcon = document.querySelector(".menu-icon");
+const navbar = document.querySelector(".navbar");
+
+document.addEventListener("scroll", () => {
+    menuIcon.classList.add("show-menu-icon");
+    navbar.classList.add("hide-navbar");
+
+    if(window.scrollY === 0) {
+        menuIcon.classList.remove("show-menu-icon");
+        navbar.classList.remove("hide-navbar");
+    }
+});
+
+menuIcon.addEventListener("click", () => {
+    menuIcon.classList.remove("show-menu-icon");
+    navbar.classList.remove("hide-navbar");
+});
+// End of Navigation 
 
 
 // About Me Text 
@@ -140,7 +160,7 @@ const container = document.querySelector(".container");
 const projects = document.querySelectorAll(".project");
 const projectHideBtn = document.querySelector(".project-hide-btn");
 
-projects.forEach((project, i) => {
+projects.forEach(project, i => {
     project.addEventListener('mouseenter', () => {
         project.firstElementChild.style.top = `-${project.firstElementChild.offsetHeight - project.offsetHeight + 20 }px`;
 
@@ -175,78 +195,40 @@ projects.forEach((project, i) => {
     // End of Big Project Image
 i >= 6 && (project.style.cssText = "display: none; opacity: 0");
 });
-
-// Projects Button
-const section3 = document.querySelector(".section-3");
-const projectsBtn = document.querySelector(".projects-btn");
-const projectsBtnText = document.querySelector(".projects-btn span");
-let showHideBool = true; 
-
-const showProjects = (project, i) => {
-    setTimeout(() => {
-        project.style.display = "flex";
-        section3.scrollIntoView({block: "end" });
-    }, 600);
-
-    setTimeout(() => {
-      project.style.opacity = "1";
-    }, i *200); 
-};
-
-const hideProjects = (project, i) => {
-       setTimeout(() => {
-        project.style.display = "none";
-        section3.scrollIntoView({block: "end" });
-    }, 1200);
-
-    setTimeout(() => {
-        project.style.opacity = "0";
-    }, i *100); 
-};
-
-
-projectsBtn.addEventListener('click', (e) => {
-e.preventDefault();
-
-projectsBtn.firstElementChild.nextElementSibling.classList.toggle("change");
-
-showHideBool
-? (projectsBtnText.textContent = "Show Less")
-: (projectsBtnText.textContent = "Show More");
-
-projects.forEach((project, i) => {
-    i >= 6 &&
-    (showHideBool ? showProjects(project, i) :
-    hideProjects(project, i));
-});
-
-showHideBool = !showHideBool;
-});
-
-// End of Projects Button 
 // End of Prtojects 
-
-// Section 4
-document.querySelectorAll(".service-btn").forEach((service) => {
-    service.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        const serviceText = service.nextElementSibling;
-        serviceText.classList.toggle("change");
-
-        const rightPosition = serviceText.classList.contains ("change")
-        ? `calc(100% - ${getComputedStyle(service.firstElementChild).width})`
-        : 0;
-
-        service.firstElementChild.style.right = rightPosition;
-    });
-    });
-// End of Section 4
-
-// Section 5
-// Form 
-const formHeading = document.querySelector(".form-heading")
-const formHeading = document.querySelector(".form-heading")
 // End of Form
+
+// Slideshow
+const slideshow = document.querySelector(".slideshow");
+
+setInterval(() => {
+    const firstIcon = slideshow.firstElementChild;
+
+    firstIcon.classList.add("faded-out");
+
+    const thirdIcon = slideshow.children[3]
+
+    thirdIcon.classList.add("light");
+
+    thirdIcon.previousElementSibling.classList.remove("light");
+
+    setTimeout(() => {
+        slideshow.removeChild(firstIcon);
+
+        slideshow.appendChild(firstIcon);
+
+
+        setTimeout(() => {
+            firstIcon.classList.remove("faded-out");
+        }, 500);
+
+    }, 500);
+}, 3000);
+
+
+
+
+
+// End of Slideshow
 // End of Section 5
 
