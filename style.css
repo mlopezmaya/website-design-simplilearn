@@ -148,11 +148,11 @@ html {
     width: 6rem;
     height: 6rem;
     border: 0.1rem solid #c7a622;
-    animation: mousecircleAnim 10s 
+    animation: mouseCircleAnim 10s 
     infinite linear;
 }
 
-@keyframes mousecircleAnim {
+@keyframes mouseCircleAnim {
 
     0% {
         width: 6rem;
@@ -305,13 +305,13 @@ html {
 
 
 .main-circle img {
-    mix-blend-mode: color-dodge;
     position: relative;
     transition: left 2s, top 2s;
+
 }
 /* End of Animated Circles */
 
-/* Featured Text */
+/* Featured Text 2 */
 .featured-text {
     font-size: 2rem;
     color: #fff;
@@ -330,7 +330,7 @@ html {
 .featured-text-2 {
     margin: 0 10rem 0 auto;
 }
-/* End of Featured Text */
+/* End of Featured Text 2 */
 
 /* Main Button */
 .main-btn {
@@ -486,6 +486,27 @@ html {
     margin-top: 10rem;
     position: relative;
 }
+
+/* Featured Text 2 */
+.featured-text {
+    font-size: 2rem;
+    color: #fff;
+    text-transform: uppercase;
+    width: 0;
+    word-wrap: break-word;
+    line-height: 3.5;
+    position: sticky;
+    top: 0;
+}
+
+.featured-text-1 {
+    margin: 0 auto 0 10rem;
+}
+
+.featured-text-2 {
+    margin: 0 10rem 0 auto;
+}
+/* End of Featured Text 2 */
 
 /* Projects */
 .projects {
@@ -719,10 +740,10 @@ margin-bottom: 40rem;
 
 /* Form */
 .form-heading {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Tangerine', serif;
     font-size: 6rem;
     font-weight: 400;
-    color: #9b0e0e;
+    color: orange;
     letter-spacing: 0.3rem;
     margin-bottom: 3rem;
 }
@@ -750,13 +771,14 @@ margin-bottom: 40rem;
 }
 
 .form-submit-btn {
+    font-family: 'Tangerine', serif;
     width: 20rem;
     height: 5rem;
     background-color: #9b0e0e;
     border: none;
     align-self: flex-start;
     font-size: 1.8rem;
-    color: #fff;
+    color: orange;
 }
 
 
