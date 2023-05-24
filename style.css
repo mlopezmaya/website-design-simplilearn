@@ -24,7 +24,7 @@ html {
     align-items: center;
 }
 
-/* Main Buttom */
+/* Main Button */
 .main-btn {
     position: absolute;
     bottom: 3rem;
@@ -111,7 +111,7 @@ html {
         height: 210%;
     }
 }
-/* End of Main Buttom */
+/* End of Main Button */
 
 
 /* Section Heading */
@@ -419,7 +419,7 @@ html {
         height: 210%;
     }
 }
-/* End of Main Butom */
+/* End of Main Button */
 /* End of Section 1 */
 
 
@@ -445,7 +445,6 @@ html {
     line-height: 0.9;
     text-shadow: 0 0 1rem #9b0e0e; 
     position: relative;
-    mix-blend-mode: color-dodge;
 
 
 }
@@ -469,12 +468,12 @@ html {
 }
 /* End of About Me Text */
 
-/* Section 2 Main Buttom */
+/* Section 2 Main Button */
 .section-2 .main-btn {
     left: 50%;
     bottom: translateX(-50%);
 }
-/* End of Section 2 Main Buttom */ 
+/* End of Section 2 Main Button */ 
 
 /* End of Section 2 */
 
@@ -740,7 +739,7 @@ margin-bottom: 40rem;
     border: 0.1rem solid #9b0e0e;
     font-size: 1.7rem;
     font-weight: bold;
-    color: #aaa;
+    color: orange;
     letter-spacing: 0.1rem;
     height: 5rem;
 }
@@ -759,6 +758,26 @@ margin-bottom: 40rem;
     font-size: 1.8rem;
     color: #fff;
 }
+
+
+/* Form Validation */
+.message {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: red;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    margin: 0 auto 1rem 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.error.message {
+    visibility: visible;
+    opacity: 1;
+}
+/* End of Form Validation */
 /* End of Form */
 /* End of Section 5 */
 
