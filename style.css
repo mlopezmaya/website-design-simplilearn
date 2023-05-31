@@ -736,6 +736,7 @@ margin-bottom: 40rem;
 .section-5 {
     position: relative;
     height: 100vh;
+    flex-direction: column;
 }
 
 /* Form */
@@ -746,6 +747,7 @@ margin-bottom: 40rem;
     color: orange;
     letter-spacing: 0.3rem;
     margin-bottom: 3rem;
+    transition: opacity 0.3s;
 }
 
 .contact-form {
@@ -781,25 +783,53 @@ margin-bottom: 40rem;
     color: orange;
 }
 
-
-/* Form Validation */
-.message {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: red;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    margin: 0 auto 1rem 0;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.error.message {
-    visibility: visible;
-    opacity: 1;
-}
-/* End of Form Validation */
 /* End of Form */
+
+/* Slide Show */
+
+.slideshow {
+    display: flex;
+    width: 50rem;
+    margin-top: 10rem;
+    padding: 0 2rem;
+
+
+}
+
+.slideshow-link {
+    width: 20%;
+    filter: brightness(0.5);
+    transition: filter 1.5s;
+
+}
+
+.slideshow-link:nth-child(1),
+.slideshow-link:nth-child(5) {
+    transition: width 0.5s, opacity 0.5s;
+
+}
+
+.slideshow-link:nth-child(3) {
+    transition: filter 0.5s;
+}
+
+.slideshow-link img {
+    width: 100%;
+    padding: 0 1rem;
+
+}
+
+.faded-out {
+    opacity: 0;
+    width: 0;
+}
+
+.light {
+    filter: brightness(1.5);
+}
+/* End of Slide Show */
 /* End of Section 5 */
+
+
+
 

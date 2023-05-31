@@ -245,70 +245,123 @@ document.querySelectorAll(".service-btn").forEach((service) => {
 
 // Section 5
 // Form 
-const checkEmail = (input) => {
-const regEx = /(?:[a-z0-9+!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/i;
+const formHeading = document.querySelector(".form-heading");
+const formInputs = document.querySelectorAll(".contact-form-input");
 
-if(regEx.test(input.value.trim())) {
-    success(input)
-} else {
-    error(input, "Email is not valid");
-}
-};
+formInputs.forEach((input) => {
+    input.addEventListener("focus", () => {
+        formHeading.style.opacity = "0"
+        setTimeout(() => {
+        formHeading.textContent = `Your ${input.placeholder}`;
+        formHeading.style.opacity = "1"
+        }, 300);
+    });
 
-form.addEventListener("submit", e => {
-    e.preventDefault();
-
-
-    checkLength(username, 2)
-    checkLength(subject, 2)
-    checkLength(message, 10)
-    checkEmail(email);
-    checkRequiredFields([username, email, subject, message]);
+input.addEventListener("blur", () => {
+    formHeading.style.opacity = "0"
+    setTimeout(() => {
+    formHeading.textContent = "Let's Talk";
+    formHeading.style.opacity = "1"
+    }, 300);
 });
+});
+
+// End of Form 
+
+// Slideshow
+
+const slideshow = document.querySelector(".slideshow");
+
+setInterval(() => {
+    const firstIcon = slideshow.firstElementChild
+
+    firstIcon.classList.add("faded-out");
+
+    const thirdIcon = slideshow.children[3]
+
+    thirdIcon.classList.add("light");
+
+    thirdIcon.previousElementSibling.classList.remove("light");
+    setTimeout(() => {
+        slideshow.removeChild(firstIcon);
+
+        slideshow.appendChild(firstIcon);
+
+        setTimeout(() => {
+        firstIcon.classList.remove("faded-out");
+    }, 500);
+    
+    }, 500);
+
+
+}, 3000)
+// End of Slideshow 
+
+
+//const checkEmail = (input) => {
+//const regEx = /(?:[a-z0-9+!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/i;
+
+//if(regEx.test(input.value.trim())) {
+//    success(input)
+//} else {
+ //   error(input, "Email is not valid");
+//}
+//};
+
+//form.addEventListener("submit", e => {
+  //  e.preventDefault();
+
+
+    //checkLength(username, 2)
+    //checkLength(subject, 2)
+    //checkLength(message, 10)
+    //checkEmail(email);
+    //checkRequiredFields([username, email, subject, message]);
+//});
 
 // End of form 
 // Form Validation
-const form = document.querySelector(".contact-form");
-const username = document.getElementById("name");
-const email = document.getElementById("email");
-const subject = document.getElementById("subject");
-const message = document.getElementById("message");
-const messages = document.querySelectorAll(".message");
+//const form = document.querySelector(".contact-form");
+//const username = document.getElementById("name");
+//const email = document.getElementById("email");
+//const subject = document.getElementById("subject");
+//const message = document.getElementById("message");
+//const messages = document.querySelectorAll(".message");
 
-const error = (input, message) => {
-    input.nextElementSibling.classList.add("error");
-    input.nextElementSibling.textContent = message;
-};
+//const error = (input, message) => {
+  //  input.nextElementSibling.classList.add("error");
+    //input.nextElementSibling.textContent = message;
+//};
 
-const success = (input) => {
-    input.nextElementSibling.classList.remove("error");
-};
+//const success = (input) => {
+  //  input.nextElementSibling.classList.remove("error");
+//};
 
-const checkRequiredFields = (inputArr) => {
-inputArr.forEach(input => {
-    if(input.value.trim() === "") {
-        error(input, `${input.id} is required`);
-    } else {
-    success(input); 
-    }
-    });
-};
+//const checkRequiredFields = (inputArr) => {
+//inputArr.forEach(input => {
+  //  if(input.value.trim() === "") {
+    //    error(input, `${input.id} is required`);
+    //} else {
+    //success(input); 
+    //}
+    //});
+//};
 
-const checkLength = (input, min) => {
-    if(input.value.trim().length < min) {
-        error(input, `${input.id} must be at least ${min} characters`);
-    } else {
-        success(input);
+//const checkLength = (input, min) => {
+    //if(input.value.trim().length < min) {
+    //    error(input, `${input.id} must be at least ${min} characters`);
+    //} else {
+     //   success(input);
 
-    }
-};
+    //}
+//};
 
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
+//form.addEventListener("submit", (e) => {
+  //  e.preventDefault();
 
-    checkRequiredFields([username, email, subject, message]);
+    //checkRequiredFields([username, email, subject, message]);
 
-});
+//});
 
 // End of Form Validation 
 
