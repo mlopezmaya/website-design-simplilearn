@@ -116,7 +116,78 @@ mainBtns.forEach(btn => {
 
   })
 
-// End of Main Butoon 
+// End of Main Button
+
+// Progress Bar 
+const sections = document.querySelectorAll("section");
+const progressBar = document.querySelector(".progress-bar");
+const halfCircles = document.querySelectorAll(".half-circle");
+const halfCircleTop = document.querySelector(".half-circle-top");
+const progressBarCircle = document.querySelector(".progress-bar-circle");
+
+const progressBarFn = (bigImgWrapper = false) => {
+    let pageHeight = 0;
+    let scrolledPortion = 0; 
+    const pageViewportHeight = window.innerHeight;
+    
+    if(!bigImgWrapper) {
+        const pageHeight = document.documentElement.scrollHeight;
+        const scrolledPortion = window.pageYOffset
+    }
+
+    
+    
+
+    const scrolledPortionDegree = 
+    (scrolledPortion / (pageHeight - pageViewportHeight)) *360;
+
+
+halfCircles.forEach((el) => {
+    el.style.transform = `rotate(${scrolledPortionDegree}deg)`;
+
+    if(scrolledPortionDegree >= 180) {
+        halfCircles[0].style.transform = "rotate(180deg)";
+        halfCircleTop.style.opacity = "0";
+    } else {
+        halfCircleTop.style.opacity = "1";
+    }
+});
+
+const scrollBool = scrolledPortion + pageViewportHeight
+=== pageHeight;
+
+// Progress Bar Click 
+progressBar.onclick = e => {
+    e.preventDefault();
+
+    const sectionPositions = Array.from(sections).map(
+        (section) => scrolledPortion + section.
+        getBoundingClientRect().top
+        );
+
+        const position = sectionPositions.find((sectionPosition) => {
+            return sectionPosition > scrolledPortion;
+        });
+
+        scrollBool ? window.scrollTo(0,0) : window.scrollTo
+        (0, position);
+        console.log(position);
+};
+// End of Progress Bar Click 
+
+// Arrow Rotation 
+if(scrollBool) {
+    progressBarCircle.style.transform = "rotate(180deg)";
+} else { 
+    progressBarCircle.style.transform = "rotate(0)";
+}
+
+// End of Arrow Rotation 
+
+};
+// End fo Progress Bar 
+
+
 
 // Navigation 
 const menuIcon = document.querySelector(".menu-icon");
@@ -131,6 +202,8 @@ menuIcon.classList.remove("show-menu-icon")
 navbar.classList.remove("hide-navbar");
 
 }
+
+progressBarfn();
 });
 
 menuIcon.addEventListener("click", () => {
