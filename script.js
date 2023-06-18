@@ -85,7 +85,7 @@ const animatecircles = (e,x,y) => {
     }
 
     mX = e.clientX;
-    My = e.clientY;
+    mY = e.clientY;
 };
 // End of Animated Circles
 
@@ -125,18 +125,25 @@ const halfCircles = document.querySelectorAll(".half-circle");
 const halfCircleTop = document.querySelector(".half-circle-top");
 const progressBarCircle = document.querySelector(".progress-bar-circle");
 
-const progressBarFn = (bigImgWrapper = false) => {
+let scrolledPortion = 0;
+let scrollBool = false;
+let imageWrapper = false;
+
+const progressBarFn = (bigImgWrapper) => {
+    imageWrapper = bigImgWrapper;
     let pageHeight = 0;
-    let scrolledPortion = 0; 
+     
     const pageViewportHeight = window.innerHeight;
     
     if(!bigImgWrapper) {
-        const pageHeight = document.documentElement.scrollHeight;
-        const scrolledPortion = window.pageYOffset
+        pageHeight = document.documentElement.scrollHeight;
+        scrolledPortion = window.pageYOffset;
+    } else {
+        pageHeight = bigImgWrapper.firstElementChild.scrollHeight;
+        scrolledPortion = bigImgWrapper.scrollTop;
+
     }
 
-    
-    
 
     const scrolledPortionDegree = 
     (scrolledPortion / (pageHeight - pageViewportHeight)) *360;
@@ -153,27 +160,10 @@ halfCircles.forEach((el) => {
     }
 });
 
-const scrollBool = scrolledPortion + pageViewportHeight
+scrollBool = scrolledPortion + pageViewportHeight
 === pageHeight;
 
-// Progress Bar Click 
-progressBar.onclick = e => {
-    e.preventDefault();
-
-    const sectionPositions = Array.from(sections).map(
-        (section) => scrolledPortion + section.
-        getBoundingClientRect().top
-        );
-
-        const position = sectionPositions.find((sectionPosition) => {
-            return sectionPosition > scrolledPortion;
-        });
-
-        scrollBool ? window.scrollTo(0,0) : window.scrollTo
-        (0, position);
-        console.log(position);
-};
-// End of Progress Bar Click 
+ 
 
 // Arrow Rotation 
 if(scrollBool) {
@@ -185,6 +175,33 @@ if(scrollBool) {
 // End of Arrow Rotation 
 
 };
+
+// Progress Bar Click 
+progressBar.addEventListener("click", e => {
+    e.preventDefault();
+
+    if(!bigImgWrapper) {
+    const sectionPositions = Array.from(sections).map(
+        (section) => scrolledPortion + section.
+        getBoundingClientRect().top
+        );
+
+        const position = sectionPositions.find(
+            (sectionPosition) => {
+            return sectionPosition > scrolledPortion;
+        });
+
+        scrollBool ? window.scrollTo(0,0) : window.scrollTo(0,
+            position);
+        } else {
+            scrollBool 
+            ? imageWrapper.scrollTo(0, 0)
+            : imageWrapper.scrollTo(0, imageWrapper.scrollHeight);
+        }
+});
+// End of Progress Bar Click
+
+progressBarFn();
 // End fo Progress Bar 
 
 
@@ -193,24 +210,25 @@ if(scrollBool) {
 const menuIcon = document.querySelector(".menu-icon");
 const navbar = document.querySelector(".navbar");
 
-document.addEventListener("scroll", () => {
+const scrollFn = () => {
     menuIcon.classList.add("show-menu-icon");
     navbar.classList.add("hide-navbar");
 
 if(window.scrollY === 0) {
 menuIcon.classList.remove("show-menu-icon")
 navbar.classList.remove("hide-navbar");
-
 }
 
-progressBarfn();
-});
+progressBarFn();
+};
+
+document.addEventListener("scroll", scrollFn);
 
 menuIcon.addEventListener("click", () => {
     menuIcon.classList.remove("show-menu-icon")
     navbar.classList.remove("hide-navbar");
     
-})
+});
 // End of Navigation 
 
 
@@ -259,12 +277,24 @@ projects.forEach((project, i) => {
         bigImgWrapper.appendChild(bigImg);
         document.body.style.overflowY = "hidden";
 
+        document.removeEventListener("scroll", scrollFn);
+
+        progressBarFn(bigImgWrapper);
+
+        bigImgWrapper.onscroll = () => {
+            progressBarFn(bigImgWrapper);
+        };
+
         projectHideBtn.classList.add("change");
 
         projectHideBtn.onclick = () => {
             projectHideBtn.classList.remove("change");
             bigImgWrapper.remove()
             document.body.style.overflowY = "scroll";
+
+            document.addEventListener("scroll", scrollFn);
+
+            progressBarFn();
         };
     });
     // End of Big Project Image
