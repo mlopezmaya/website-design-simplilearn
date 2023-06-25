@@ -2,8 +2,10 @@
 const mouseCircle = document.querySelector(".mouse-circle");
 const mouseDot = document.querySelector(".mouse-dot");
 
+
 const mouseCircleFn = (x, y) => {
     mouseCircle.style.cssText = `top: ${y}px; left: ${x}px`;
+
     mouseDot.style.cssText = `top: ${y}px; left: ${x}px`;
 };
 // End of Mouse Circle
@@ -16,6 +18,7 @@ const mainImg = document.querySelector(".main-circle img");
 
 let mX = 0;
 let mY = 0;
+const z = 100;
 
 const animateCircles = (e,x,y) => {
     if(x < mX) {
@@ -89,11 +92,63 @@ const animatecircles = (e,x,y) => {
 };
 // End of Animated Circles
 
+let hoveredElPosition = [];
+
+const stickyElement = (x, y, hoveredEl) => {
+
+
+    // Sticky Element
+    if(hoveredEl.classList.contains("sticky")) {
+      hoveredElPosition.lenght < 1 &&
+        (hoveredElPosition = [hoveredEl.offsetTop, hoveredEl.offsetLeft]);
+
+      hoveredEl.style.cssText = `top: ${y}px; left: ${x}px`;
+
+    if(
+     hoveredEl.offsetTop <= hoveredElPosition[0] - 100 ||
+     hoveredEl.offsetTop >= hoveredElPosition[0] + 100 ||
+     hoveredEl.offsetLeft <= hoveredElPosition[1] - 100 ||
+     hoveredEl.offsetLeft >= hoveredElPosition[1] + 100
+      ){
+        
+        hoveredEl.style.cssText = "";
+        hoveredElPosition = [];
+      } 
+
+      hoveredEl.onmouseleave = () => {
+        hoveredEl.style.cssText = "", 
+        hoveredElPosition = [];
+      };
+    }
+    // End of Sticky Element
+};
+
+
+
+document.body.addEventListener("mousemove", (e) => {
+let x = e.clientX;
+let y = e.clientY;
+
+mouseCircleFn(x, y);
+animateCircles(e, x, y);
+
+const hoveredEl = document.elementFromPoint(x, y);
+
+stickyElement(x, y, hoveredEl);
+
+});
+
+document.body.addEventListener("mouyseleave", () => {
+    mouseCircle.style.opacity = "0";
+    mouseDot.style.opacity = "0";
+
+});
+
 
 // Main Buttom
 const mainBtns = document.querySelectorAll(".main-btn");
 
-mainBtns.forEach(btn => {
+mainBtns.forEach((btn) => {
     let ripple;
 
  btn.addEventListener("mouseenter",(e) => {
